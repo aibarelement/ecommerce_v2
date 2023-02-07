@@ -20,6 +20,6 @@ class UserViewSet(ViewSet):
         serializer = serializers.CreateTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        token = self.user_services.create_token(data=serializer.validated_data)
+        tokens = self.user_services.create_token(data=serializer.validated_data)
 
-        return Response({'access': str(token)})
+        return Response(tokens)

@@ -1,11 +1,13 @@
 import uuid
 
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
 class Product(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    user = models.ForeignKey(to=get_user_model(), on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     body = models.TextField(verbose_name=_('Body'))
     main_image = models.ImageField(upload_to='products/%Y/%m/%d', verbose_name=_('Main image'))

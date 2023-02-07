@@ -1,5 +1,5 @@
 from typing import Protocol, OrderedDict
-from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework_simplejwt import tokens
 
 from . import repos
 
@@ -8,7 +8,7 @@ class UserServicesInterface(Protocol):
 
     def create_user(self, data: OrderedDict) -> None: ...
 
-    def create_token(self, data: OrderedDict) -> AccessToken: ...
+    def create_token(self, data: OrderedDict) -> dict: ...
 
 
 class UserServicesV1:
@@ -22,7 +22,13 @@ class UserServicesV1:
     def _send_letter_to_email(email: str) -> None:
         print(f'send letter to {email}')
 
-    def create_token(self, data: OrderedDict) -> AccessToken:
+    def create_token(self, data: OrderedDict) -> dict:
         user = self.user_repos.get_user(data=data)
 
-        return AccessToken.for_user(user)
+        access = tokens.AccessToken.for_user(user)
+        refresh = tokens.RefreshToken.for_user(user)
+
+        return {
+            'access': str(access),
+            'refresh': str(refresh),
+        }
