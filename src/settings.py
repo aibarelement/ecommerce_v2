@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_cleanup.apps.CleanupConfig',
     'debug_toolbar',
+    'phonenumber_field',
 
     'products',
     'users',
@@ -159,4 +160,14 @@ SIMPLE_JWT = {
     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'USER_ID_FIELD': 'pk',
     'USER_ID_CLAIM': 'user_id',
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
 }

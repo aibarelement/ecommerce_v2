@@ -1,4 +1,4 @@
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from utils import mixins
@@ -19,7 +19,7 @@ class ProductViewSet(mixins.ActionSerializerMixin, ModelViewSet):
 
     def get_permissions(self):
         if self.action in ('list', 'retrieve'):
-            return AllowAny(),
+            return IsAuthenticated(),
 
         return permissions.IsMe(),
     

@@ -22,9 +22,4 @@ class UserReposV1:
 
     @staticmethod
     def get_user(data: OrderedDict) -> models.User:
-        user = get_object_or_404(models.User, email=data['email'])
-
-        if not user.check_password(data['password']):
-            raise models.User.DoesNotExist
-
-        return user
+        return get_object_or_404(models.User, **data)
