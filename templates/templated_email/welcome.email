@@ -1,0 +1,17 @@
+{% block subject %}Welcome to our website!!!{% endblock %}
+
+
+{% block plain %}
+  {% block html %}
+      <p>Hello,</p>
+
+      <p>You just signed up for my website, using:
+          <dl>
+            <dt>email</dt><dd>{{email}}</dd>
+            <dt>phone number</dt><dd>{{phone_number}}</dd>
+          </dl>
+      </p>
+
+      <p>Thanks, you rock!</p>
+  {% endblock %}
+{% endblock %}
