@@ -8,7 +8,13 @@ from . import models
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', 'phone_number')}),
+        (_('Personal info'), {'fields': (
+            'first_name',
+            'last_name',
+            'email',
+            'phone_number',
+            'user_type',
+        )}),
         (
             _('Permissions'),
             {
@@ -23,7 +29,6 @@ class CustomUserAdmin(UserAdmin):
         ),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
-    pass
 
 
 admin.site.register(models.User, CustomUserAdmin)
