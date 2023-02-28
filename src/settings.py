@@ -18,12 +18,13 @@ SECRET_KEY = 'django-insecure-e09khwik44_!q6_ra_pb_g(1#l$6zon!f#a-a#li(pwg5y1464
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'channels',
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
@@ -49,6 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -75,8 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'src.wsgi.application'
-
+ASGI_APPLICATION = 'src.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -194,3 +197,18 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
 }
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+CORS_ALLOWED_ORIGINS = (
+    'https://example.com',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+)
